@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coach Jerry | Affiliate Marketing Mentor</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --brand-azure: #007fff; /* Primary Azure */
+            --brand-sky: #00ccff;
+            --brand-navy: #001f3f;
+            --brand-ice: #f0f8ff; /* Azure Mist */
+            --azure-gradient: linear-gradient(135deg, #007fff 0%, #00ccff 100%);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--brand-ice);
+            color: var(--brand-navy);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Sidebar Styles */
+        #sidebar {
+            min-width: 280px;
+            max-width: 280px;
+            min-height: 100vh;
+            background: var(--brand-navy);
+            transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+            position: fixed;
+            z-index: 1050;
+            box-shadow: 15px 0 40px rgba(0,0,0,0.2);
+        }
+
+        #sidebar.closed {
+            margin-left: -280px;
+        }
+
+        .sidebar-header {
+            padding: 3rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-link {
+            padding: 1.2rem 2rem;
+            color: #b0c4de;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: 0.3s all;
+            font-weight: 600;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-link:hover {
+            color: white;
+            background: rgba(255,255,255,0.05);
+            border-left: 4px solid var(--brand-azure);
+        }
+
+        /* Main Content Wrapper */
+        #content {
+            width: 100%;
+            padding-left: 280px;
+            transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+            position: relative;
+        }
+
+        #content.expanded {
+            padding-left: 0;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: radial-gradient(circle at top right, #e0f2ff, #ffffff);
+            padding: 8rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .azure-glow {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: var(--brand-azure);
+            filter: blur(150px);
+            opacity: 0.15;
+            border-radius: 50%;
+            z-index: 0;
+            animation: drift 20s infinite alternate;
+        }
+
+        @keyframes drift {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(20%, 20%); }
+        }
+
+        .profile-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2.5rem;
+            z-index: 1;
+        }
+
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 8px solid white;
+            object-fit: cover;
+            box-shadow: 0 25px 50px rgba(0, 127, 255, 0.2);
+            background-color: #fff;
+            animation: profileFloat 5s ease-in-out infinite;
+        }
+
+        @keyframes profileFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.02); }
+        }
+
+        .crown-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            border: 5px solid white;
+            box-shadow: 0 10px 20px rgba(255, 140, 0, 0.4);
+            z-index: 2;
+        }
+
+        /* Cards and Elements */
+        .custom-card {
+            border: none;
+            border-radius: 2.5rem;
+            box-shadow: 0 30px 60px rgba(0, 31, 63, 0.05);
+            background: white;
+            transition: all 0.4s ease;
+            margin-bottom: 3rem;
+            overflow: hidden;
+            border: 1px solid rgba(0, 127, 255, 0.1);
+        }
+
+        .custom-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 40px 80px rgba(0, 127, 255, 0.12);
+        }
+
+        /* Buttons */
+        .btn-cta {
+            background: var(--azure-gradient);
+            border: none;
+            color: white;
+            padding: 1.2rem 3rem;
+            border-radius: 20px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 15px 30px rgba(0, 127, 255, 0.3);
+        }
+
+        .btn-cta:hover {
+            transform: scale(1.05);
+            color: white;
+            box-shadow: 0 20px 40px rgba(0, 127, 255, 0.4);
+        }
+
+        /* Video Area */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 2rem;
+            background: var(--brand-navy);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 992px) {
+            #sidebar { margin-left: -280px; }
+            #sidebar.open { margin-left: 0; }
+            #content { padding-left: 0; }
+        }
+
+        .menu-trigger {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1100;
+            background: var(--brand-azure);
+            color: white;
+            width: 70px;
+            height: 70px;
+            box-shadow: 0 15px 30px rgba(0, 127, 255, 0.4);
+            border: none;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .menu-trigger:active { transform: scale(0.9); }
+
+        .azure-text {
+            color: var(--brand-azure);
+        }
+
+        .marketing-intro {
+            border-left: 4px solid var(--brand-azure);
+            background: var(--brand-ice);
+            padding: 1.5rem;
+            border-radius: 0 1.5rem 1.5rem 0;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Mobile Menu Trigger -->
+    <button type="button" id="sidebarToggle" class="menu-trigger d-lg-none">
+        <i class="bi bi-grid-fill fs-2"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h4 class="mb-0 text-white font-bold tracking-tight">COACH JERRY</h4>
+            <div class="d-flex align-items-center mt-2">
+                <span class="badge bg-info text-dark fw-bold me-2" style="font-size: 0.6rem;">PRO</span>
+                <small class="text-info fw-bold uppercase" style="font-size: 0.7rem;">Verified Mentor</small>
+            </div>
+        </div>
+
+        <ul class="list-unstyled mt-4">
+            <li>
+                <a href="#home" class="nav-link"><i class="bi bi-house-door-fill"></i> Home</a>
+            </li>
+            <li>
+                <a href="#strategy" class="nav-link"><i class="bi bi-lightbulb-fill"></i> The Strategy</a>
+            </li>
+            <li>
+                <a href="#contact" class="nav-link"><i class="bi bi-chat-square-text-fill"></i> Direct Access</a>
+            </li>
+            <li>
+                <hr class="mx-4 border-secondary opacity-25">
+            </li>
+            <li>
+                <a href="mailto:jerryessel99@gmail.com" class="nav-link"><i class="bi bi-envelope-paper-fill"></i> Official Email</a>
+            </li>
+        </ul>
+
+        <div class="mt-auto p-4 mb-4">
+            <div class="bg-gradient bg-primary p-4 rounded-4 text-white">
+                <p class="small fw-bold mb-3"><i class="bi bi-people-fill me-2"></i> 2.4k+ Active Students</p>
+                <a href="https://wa.me/233598135228" class="btn btn-light btn-sm w-100 rounded-pill fw-bold text-primary py-2">Join Private Group</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div id="content">
+        
+        <!-- Hero Section -->
+        <section id="home" class="hero d-flex align-items-center min-vh-100">
+            <div class="azure-glow" style="top: -10%; right: -10%;"></div>
+            <div class="azure-glow" style="bottom: 10%; left: -5%; opacity: 0.1;"></div>
+            
+            <div class="container position-relative">
+                <div class="profile-container">
+                    <img src="picture.jpeg" alt="Coach Jerry" class="profile-img">
+                    <div class="crown-badge">
+                        <i class="bi bi-crown-fill"></i>
+                    </div>
+                </div>
+                
+                <h1 class="display-2 fw-black mb-3 reveal" style="font-weight: 900; letter-spacing: -3px;">Coach <span class="azure-text">Jerry</span></h1>
+                <p class="lead mb-5 text-secondary fw-medium px-4 reveal" style="max-width: 700px; margin: 0 auto;">
+                    Master the art of <span class="fw-bold text-dark italic">High-Ticket Affiliate Marketing</span>. 
+                    I'll show you exactly how to build a 6-figure recurring income from scratch.
+                </p>
+                
+                <div class="d-grid gap-3 d-sm-flex justify-content-center px-4 reveal">
+                    <a href="#contact" class="btn btn-cta btn-lg px-5">
+                        Claim Your Mentorship <i class="bi bi-lightning-charge-fill ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    
+                    <!-- Strategy / Webinar Section -->
+                    <div class="card custom-card reveal" id="strategy">
+                        <div class="card-body p-4 p-md-5">
+                            <div class="text-center mb-5">
+                                <span class="badge bg-info-subtle text-info px-4 py-2 rounded-pill mb-3 fw-bold">PHASE 1: THE FOUNDATION</span>
+                                <h2 class="display-6 fw-bold">Watch My Winning Strategy</h2>
+                            </div>
+
+                            <!-- Affiliate Marketing Explanation -->
+                            <div class="marketing-intro mb-5">
+                                <h5 class="fw-bold azure-text mb-3"><i class="bi bi-info-circle-fill me-2"></i> What is Affiliate Marketing?</h5>
+                                <p class="text-muted mb-0 leading-relaxed">
+                                    Affiliate marketing is the process of earning a commission by promoting other people's or company's products. 
+                                    You find a product you like, promote it to others, and earn a piece of the profit for each sale that you make. 
+                                    <span class="fw-bold text-dark">It’s the world’s most powerful business model because you don't need your own product, staff, or shipping.</span>
+                                </p>
+                            </div>
+
+                            <div class="video-container shadow-2xl">
+                                <iframe 
+                                    src="https://www.youtube.com/embed/asVE9QJ3WVc" 
+                                    title="Jerry's Affiliate Strategy" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                            
+                            <div class="mt-5 p-4 bg-light rounded-4 border">
+                                <p class="text-center fw-bold text-navy mb-0">
+                                    <i class="bi bi-check2-all text-success me-2"></i> 
+                                    In this video, I reveal the exact "3-Step Funnel" that generated $10k in 30 days.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact & CTA Section -->
+                    <div class="card custom-card p-4 p-md-5 reveal" id="contact">
+                        <div class="card-body">
+                            <div class="text-center mb-5">
+                                <h2 class="display-6 fw-bold">Apply For <span class="azure-text">Mentorship</span></h2>
+                                <p class="text-muted">I only take 5 new students per month to ensure quality results.</p>
+                            </div>
+                            
+                            <div class="row g-4 mb-5">
+                                <div class="col-md-6">
+                                    <div class="p-4 border border-light-subtle rounded-4 text-center bg-white hover:bg-azure h-100">
+                                        <i class="bi bi-whatsapp azure-text display-4 mb-3"></i>
+                                        <h5 class="fw-bold">Fast-Track WhatsApp</h5>
+                                        <p class="text-muted small">Chat directly with Coach Jerry</p>
+                                        <a href="https://wa.me/233598135228" target="_blank" class="btn btn-outline-primary w-100 rounded-pill fw-bold">Say Hello</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="p-4 border border-light-subtle rounded-4 text-center bg-white h-100">
+                                        <i class="bi bi-envelope-check-fill azure-text display-4 mb-3"></i>
+                                        <h5 class="fw-bold">Official Support</h5>
+                                        <p class="text-muted small">jerryessel99@gmail.com</p>
+                                        <a href="mailto:jerryessel99@gmail.com" class="btn btn-outline-secondary w-100 rounded-pill fw-bold">Send Proposal</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form id="contactForm" class="bg-ice p-4 p-md-5 rounded-4 shadow-inner">
+                                <div class="row g-3">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold text-muted small uppercase">Full Name</label>
+                                        <input type="text" id="userName" class="form-control form-control-lg border-0 shadow-sm" placeholder="Coach jerry" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold text-muted small uppercase">WhatsApp Number</label>
+                                        <input type="tel" id="userPhone" class="form-control form-control-lg border-0 shadow-sm" placeholder="+233..." required>
+                                    </div>
+                                    <div class="col-12 mb-4">
+                                        <label class="form-label fw-bold text-muted small uppercase">What is your income goal?</label>
+                                        <textarea id="userMessage" class="form-control form-control-lg border-0 shadow-sm" rows="3" placeholder="Example: $5,000 per month within 90 days..." required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-cta w-100 py-3">
+                                        Submit Application <i class="bi bi-chevron-right ms-2"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Professional Footer -->
+        <footer class="bg-white py-5 border-top">
+            <div class="container text-center">
+                <div class="mb-4">
+                    <span class="fs-4 fw-black tracking-tight">COACH <span class="azure-text">JERRY</span></span>
+                </div>
+                <div class="d-flex justify-content-center gap-4 mb-4 fs-5">
+                    <a href="https://wa.me/233598135228" class="text-secondary hover:text-primary"><i class="bi bi-whatsapp"></i></a>
+                </div>
+                <p class="text-muted small">&copy; 2026 Coach Jerry Mentorship. No Income Guarantees — Hard Work Required.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Sidebar Logic
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const content = document.getElementById('content');
+
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('open');
+            content.classList.toggle('expanded');
+        });
+
+        // Close sidebar on link click (mobile)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove('open');
+                    content.classList.remove('expanded');
+                }
+            });
+        });
+
+        // WhatsApp Form Logic
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('userName').value;
+            const phone = document.getElementById('userPhone').value;
+            const goal = document.getElementById('userMessage').value;
+            const coachNumber = "233598135228"; 
+            
+            const text = encodeURIComponent(`Hello Coach Jerry, I'm ${name}.\nPhone: ${phone}\nMy Goal: ${goal}\nI'm ready for the mentorship!`);
+            window.open(`https://wa.me/${coachNumber}?text=${text}`, '_blank');
+        });
+
+        // Reveal on Scroll
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load
+        window.onload = reveal;
+    </script>
+</body>
+</html>
